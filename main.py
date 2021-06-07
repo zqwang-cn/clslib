@@ -1,39 +1,12 @@
 import os
 import random
-import argparse
 import torch
 import torchvision
-from tools import get_model, get_dataset, load_checkpoint, train, val
-
-
-def parse():
-    parser = argparse.ArgumentParser()
-
-    # model
-    parser.add_argument('--arch', type=str, default='resnet18', help='model arch')
-    # data
-    parser.add_argument('--data_root', type=str, default='data/car_type', help='dataset root')
-    parser.add_argument('--image_size', nargs=2, type=int, default=[256, 256], help='image input size')
-    parser.add_argument('--batch_size', type=int, default=64, help='batch size')
-    parser.add_argument('--num_workers', type=int, default=16, help='worker number')
-    # train
-    parser.add_argument('--n_epochs', type=int, default=100, help='iteration number')
-    parser.add_argument('--lr', type=float, default=0.0001, help='learning rate')
-    parser.add_argument('--resume', action='store_true', help='resume training from last checkpoint')
-    parser.add_argument('--val', action='store_true', help='is validation')
-    # checkpoint
-    parser.add_argument('--ckpt_dir', type=str, default='checkpoints', help='checkpoint dir')
-    parser.add_argument('--ckpt_interval', type=int, default=10, help='checkpoint saving interval')
-    # other
-    parser.add_argument('--seed', type=int, default=123456, help='random seed')
-    parser.add_argument('--gpus', type=str, default='0', help='used gpu ids')
-
-    opt = parser.parse_args()
-    return opt
+from tools import parse_args, get_model, get_dataset, load_checkpoint, train, val
 
 
 if __name__ == '__main__':
-    opt = parse()
+    opt = parse_args()
     print(opt)
 
     random.seed(opt.seed)
